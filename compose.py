@@ -1,12 +1,11 @@
 #!/usr/bin/env python 
 
-import os
 import string
 import random
 
-from graph import Graph, Vertex
+from graph import Graph
 
-def get_words_from_text(text_path):
+def get_words_from_text(text_path: str) -> list[str]:
     with open(text_path, 'r') as f:
         text = f.read()
         text = ' '.join(text.split())
@@ -16,7 +15,8 @@ def get_words_from_text(text_path):
     words = text.split()
     return words
 
-def make_graph(words):
+
+def make_graph(words: list[str]) -> Graph:
     g = Graph()
     previous_word = None
 
@@ -32,7 +32,8 @@ def make_graph(words):
 
     return g
 
-def compose(g, words, length=50):
+
+def compose(g: Graph, words: list[str], length: int = 50) -> list[str]:
     composition = []
     word = g.get_vertex(random.choice(words)) # Pick random word to start
     for _ in range(length):
@@ -41,7 +42,8 @@ def compose(g, words, length=50):
 
     return composition
 
-def main():
+
+def main() -> str:
     words = get_words_from_text('texts/hp_sorcerer_stone.txt')
 
     g = make_graph(words)
