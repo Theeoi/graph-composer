@@ -2,7 +2,7 @@ import random
 
 class Vertex(object):
     def __init__(self, value):
-        self.value = value # The word from text input
+        self.value: str = value # The word from text input
         self.adjacent: dict[Vertex, int] = {}
         self.neighbors: list[Vertex] = []
         self.neighbor_weights: list[int] = []
