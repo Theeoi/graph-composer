@@ -1,6 +1,6 @@
 import random
 
-class Vertex(object):
+class Vertex():
     def __init__(self, value):
         self.value = value # The word from text input
         self.adjacent: dict[Vertex, int] = {}
@@ -19,7 +19,7 @@ class Vertex(object):
         return random.choices(self.neighbors, self.neighbor_weights)[0]
 
 
-class Graph(object):
+class Graph():
     def __init__(self):
         self.vertices: dict[str, Vertex] = {}
 

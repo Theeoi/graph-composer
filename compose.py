@@ -3,7 +3,7 @@
 import string
 import random
 
-from graph import Graph
+from graph import Graph, Vertex
 
 def get_words_from_text(text_path: str) -> list[str]:
     with open(text_path, 'r') as f:
@@ -18,15 +18,20 @@ def get_words_from_text(text_path: str) -> list[str]:
 
 def make_graph(words: list[str]) -> Graph:
     g = Graph()
-    previous_word = None
+    previous_words: list[Vertex] = []
 
     for word in words:
         word_vertex = g.get_vertex(word)
 
-        if previous_word:
-            previous_word.increment_edge(word_vertex)
+        if previous_words:
+            previous_words[0].increment_edge(word_vertex)
 
-        previous_word = word_vertex
+        previous_words.insert(0, word_vertex)
+
+        if len(previous_words) > 2:
+            previous_words.pop()
+
+        print(previous_words)
 
     g.generate_probability_mappings()
 
