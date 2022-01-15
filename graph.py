@@ -1,25 +1,32 @@
 import random
 
-class Vertex(object):
+class Vertex():
     def __init__(self, value):
         self.value: str = value # The word from text input
         self.adjacent: dict[Vertex, int] = {}
+        self.adjacent2: dict[Vertex, int] = {}
         self.neighbors: list[Vertex] = []
         self.neighbor_weights: list[int] = []
 
+    def __repr__(self) -> str:
+        return f'Vertex({self.value})'
+
     def increment_edge(self, vertex: 'Vertex') -> None:
         self.adjacent[vertex] = self.adjacent.get(vertex, 0) + 1 # Get adjacent-number and increment
+    
+    def increment_edge2(self, vertex: 'Vertex') -> None:
+        self.adjacent2[vertex] = self.adjacent2.get(vertex, 0) + 1 # Get adjacent-number and increment
 
     def get_probability_map(self) -> None:
         for (vertex, weight) in self.adjacent.items():
             self.neighbors.append(vertex)
-            self.neighbor_weights.append(weight)
-
+            self.neighbor_weights.append(weight + self.adjacent2.get(vertex, 0))
+            
     def next_word(self) -> 'Vertex':
         return random.choices(self.neighbors, self.neighbor_weights)[0]
 
 
-class Graph(object):
+class Graph():
     def __init__(self):
         self.vertices: dict[str, Vertex] = {}
 
