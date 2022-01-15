@@ -25,13 +25,12 @@ def make_graph(words: list[str]) -> Graph:
 
         if previous_words:
             previous_words[0].increment_edge(word_vertex)
+            
+            if len(previous_words) > 1:
+                previous_words[1].increment_edge2(word_vertex)
+                previous_words.pop()
 
         previous_words.insert(0, word_vertex)
-
-        if len(previous_words) > 2:
-            previous_words.pop()
-
-        print(previous_words)
 
     g.generate_probability_mappings()
 
